@@ -1,0 +1,3 @@
+C:/Users/Jeili/CLionProjects/CPP_2025_CA1_JE/cmake-build-debug/CMakeFiles/CPP_2025_CA1_JE.dir
+C:/Users/Jeili/CLionProjects/CPP_2025_CA1_JE/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Jeili/CLionProjects/CPP_2025_CA1_JE/cmake-build-debug/CMakeFiles/rebuild_cache.dir
