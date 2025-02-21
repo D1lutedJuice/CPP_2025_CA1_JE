@@ -1,25 +1,32 @@
 #include <iostream>
+#include <fstream> // used for access to the file input and output classes
 
-// TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
+using namespace std;
+
+// function prototype
+void read_line_by_line(ifstream &);
+
 int main() {
-    // TIP Press <shortcut actionId="RenameElement"/> when your caret is at the
-    // <b>lang</b> variable name to see how CLion can help you rename it.
-    auto lang = "C++";
-    std::cout << "Hello and welcome to " << lang << "!\n";
 
-    for (int i = 1; i <= 5; i++) {
-        // TIP Press <shortcut actionId="Debug"/> to start debugging your code.
-        // We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/>
-        // breakpoint for you, but you can always add more by pressing
-        // <shortcut actionId="ToggleLineBreakpoint"/>.
-        std::cout << "i = " << i << std::endl;
+    ifstream ifs("C:/Users/Jeili/CLionProjects/CPP_2025_CA1_JE/honkai_data.csv");
+
+    if (ifs) { //if file opened
+        cout << "\nHonkai Star rail Data:" << endl;
+        read_line_by_line(ifs);// pass the ifs into a function that will read its content line-by-line
+    } else {
+        cout << "Unable to open file" << endl;
     }
+    ifs.close();    // close the file
 
     return 0;
 }
 
-// TIP See CLion help at <a
-// href="https://www.jetbrains.com/help/clion/">jetbrains.com/help/clion/</a>.
-//  Also, you can try interactive lessons for CLion by selecting
-//  'Help | Learn IDE Features' from the main menu.
+void read_line_by_line(ifstream& ifs) {
+    string line;
+    while (getline(ifs, line)) // while not at end of file, read a full line of text
+    {
+        cout << line << "\n";   // print the line to the screen followed by a space
+    }
+}
+
