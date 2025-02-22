@@ -1,4 +1,3 @@
-ID,Name,Type,Path,Rarity,Drop Rate
 1,Kafka,Character,Nihility,5,0.6
 2,Sunday,Character,Harmony,5,0.6
 3,Dan Heng,Character,Hunt,4,5.1
@@ -58,7 +57,7 @@ ID,Name,Type,Path,Rarity,Drop Rate
 57,Ruan Mei,Character,Harmony,5,0.6
 58,Huo Huo,Character,Abundance,5,0.6
 59,Mydei,Character,Destruction,5,0.6
-60,Trailblazer,Character,Harmony,5,N/A
+60,Trailblazer,Character,Harmony,5,100
 61,Qingque,Character,Erudition,4,5.1
 62,Make the world Calmer,Light Cone,Erudition,4,6.6
 63,Night of Fright,Light Cone,Abundance,5,0.8
