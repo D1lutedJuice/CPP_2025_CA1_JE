@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include <map>
 #include <vector>
 
 
@@ -76,6 +77,28 @@ void display(const Honkai &honkai) {
         << endl;
 }
 
+int findByName(vector<Honkai> &honkaiData, string nameIn) {
+    //loop through the data
+    for (int i = 0; i < honkaiData.size(); ++i) {
+        //if the name at index i is equal to the given name
+        if (honkaiData[i].name == nameIn) {
+            //returns the index where name is
+            return i;
+        }
+    }
+        return -1;//otherwise returns -1
+}
+
+map<string, int> CountByPath(vector<Honkai> &honkaiData) {
+
+    map<string, int> m;
+    //goes through all data
+    for (int i = 0; i < honkaiData.size(); ++i) {
+        //add count of each type
+        m[honkaiData[i].path]++;
+    }
+    return m;
+}
 
 int main() {
 
@@ -92,7 +115,31 @@ int main() {
     for (const Honkai &honkai : honkaiData) {
         display(honkai);
     }
-    
+
+    string nameIn;
+    cout << "\nEnter name to search for: ";
+    cin >> nameIn;
+    //call method to get index
+    int index = findByName(honkaiData, nameIn);
+    if (index == -1) {
+        cout << "Name not found" << endl;
+    }
+    else {
+        cout << "Found at index: "<< index << endl;
+        display(honkaiData[index]);
+    }
+
+    map<string, int> counts = CountByPath(honkaiData);
+    cout << "\nPath Counts:" << endl;
+
+    //got this off w3schools https://www.w3schools.com/cpp/trycpp.asp?filename=demo_maps_loop
+    //loops through the map
+    for (auto& count : counts) {
+        //gets key and value and displays it
+        cout << count.first << ": " << count.second << endl;
+    }
+
+
     return 0;
 }
 
