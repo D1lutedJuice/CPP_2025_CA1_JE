@@ -100,13 +100,32 @@ map<string, int> CountByPath(vector<Honkai> &honkaiData) {
     return m;
 }
 
-int main() {
+void displayByType(vector<Honkai> &honkaiData, string typeIn) {
 
-    const string filename = "C:/Users/Jeili/CLionProjects/CPP_2025_CA1_JE/honkai_data.csv";
+    bool exists= false;
+    cout << "All data for " << typeIn << endl;
+    //loops through the data
+    for (int i = 0; i < honkaiData.size(); ++i) {
+        //if there is a data with that type then call display function
+        if (honkaiData[i].type == typeIn) {
+            exists = true;
+            display(honkaiData[i]);
+        }
+    }
+    if (!exists) {
+        cout << "Not found" << endl;
+    }
+}
+
+int main() {
+    //stage 2
+    const string filename = "honkai_data.csv";
     vector<Honkai> honkaiData;
 
     //calling load function
     load(filename, honkaiData);
+
+    //stage 3 part 1
     //a header for the data made the width the same as the data
     cout << left << setw(5) << "ID" << setw(35) << "Name" << setw(13) << "Type"
     << setw(15) << "Path" << setw(7) << "Rarity" << setw(8) << "Drop Rate" << endl;
@@ -116,6 +135,7 @@ int main() {
         display(honkai);
     }
 
+    //stage 3 part 2
     string nameIn;
     cout << "\nEnter name to search for: ";
     cin >> nameIn;
@@ -129,6 +149,7 @@ int main() {
         display(honkaiData[index]);
     }
 
+    //stage 3 part 3
     map<string, int> counts = CountByPath(honkaiData);
     cout << "\nPath Counts:" << endl;
 
@@ -138,6 +159,14 @@ int main() {
         //gets key and value and displays it
         cout << count.first << ": " << count.second << endl;
     }
+
+    //Stage 3 part 4
+    string typeIn;
+    cout << "Enter what Type to search by (Character or Light Cone)" << endl;
+    //ignores the newline character (got this from https://www.geeksforgeeks.org/cin-ignore-function-in-cpp/)
+    cin.ignore();
+    getline(cin , typeIn) ;
+    displayByType(honkaiData, typeIn);
 
 
     return 0;
