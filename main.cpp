@@ -117,6 +117,48 @@ void displayByType(vector<Honkai> &honkaiData, string typeIn) {
     }
 }
 
+//add the & to highest and lowest so it will change the values in function
+int findRarityinfo(vector<Honkai> &honkaiData, Honkai &highest, Honkai &lowest) {
+    //highest and lowest to the first item in the vector
+    highest= honkaiData[0];
+    lowest = honkaiData[0];
+    int total = 0;
+
+    //go through the data
+    for (Honkai &honkai : honkaiData) {
+        //add the total of rarities
+        total += honkai.rarity;
+        //find the lowest one and add it to the vector
+        if (honkai.rarity < lowest.rarity) {
+            lowest = honkai;
+        }
+        //find the highest one and add to vector
+        if (honkai.rarity > highest.rarity) {
+            highest = honkai;
+        }
+    }
+    //get avrage
+    int average= total / honkaiData.size();
+    return average;
+
+}
+
+
+vector<Honkai> partialName(vector<Honkai> &honkaiData, string partialName) {
+    vector<Honkai> matchingName;
+    //iterator goes through the data untill it reaches the end
+    for (auto it = honkaiData.begin(); it != honkaiData.end(); it++) {
+        //dereference the iterator,it gets the name of the current one that its pointing at
+        //and checks if it matches, as long as it does it will add it to vector
+       if ((*it).name.find(partialName) != string::npos) {
+           //add it to vector
+           matchingName.push_back(*it);
+       }
+    }
+    return matchingName;
+
+}
+
 int main() {
     //stage 2
     const string filename = "honkai_data.csv";
@@ -153,7 +195,7 @@ int main() {
     map<string, int> counts = CountByPath(honkaiData);
     cout << "\nPath Counts:" << endl;
 
-    //got this off w3schools https://www.w3schools.com/cpp/trycpp.asp?filename=demo_maps_loop
+    //got help off w3schools https://www.w3schools.com/cpp/trycpp.asp?filename=demo_maps_loop
     //loops through the map
     for (auto& count : counts) {
         //gets key and value and displays it
@@ -167,6 +209,31 @@ int main() {
     cin.ignore();
     getline(cin , typeIn) ;
     displayByType(honkaiData, typeIn);
+
+    //stage 3 part 5
+    Honkai highest;
+    Honkai lowest;
+    int average= findRarityinfo(honkaiData, highest, lowest);
+    cout << "\nRarity Info:" << endl;
+    cout << "Average Rarity: " << average << endl;
+    cout << "Lowest Rarity: " << endl;
+    display(lowest);
+    cout << "Highest Rarity: " << endl;
+    display(highest);
+
+    //stage 3 part 6
+    string partialNameIn;
+    cout << "Enter Partial name to search for (The): ";
+    cin >> partialNameIn;
+   vector <Honkai> r= partialName(honkaiData, partialNameIn);
+    if (r.empty()) {
+        cout << "No data found" << endl;
+    }
+    else {
+        for (const Honkai &honkai : r) {
+            display(honkai);
+        }
+    }
 
 
     return 0;
