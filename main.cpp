@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -5,7 +6,7 @@
 #include <iomanip>
 #include <map>
 #include <vector>
-
+#include <bits/ranges_algo.h>
 
 
 using namespace std;
@@ -159,6 +160,20 @@ vector<Honkai> partialName(vector<Honkai> &honkaiData, string partialName) {
 
 }
 
+void sortByDropRate(vector<Honkai> &honkaiData) {
+    //sorting data in decsending order, based on dRop rate using lambda function
+    auto func = [](Honkai s1, Honkai s2) {return s1.dropRate > s2.dropRate; };
+    sort(honkaiData.begin(), honkaiData.end(), func);
+
+    //print out header
+    cout << left << setw(5) << "ID" << setw(35) << "Name" << setw(13) << "Type"
+    << setw(15) << "Path" << setw(7) << "Rarity" << setw(8) << "Drop Rate" << endl;
+
+    for (Honkai &honkai : honkaiData) {
+        display(honkai);
+    }
+}
+
 int main() {
     //stage 2
     const string filename = "honkai_data.csv";
@@ -180,7 +195,9 @@ int main() {
     //stage 3 part 2
     string nameIn;
     cout << "\nEnter name to search for: ";
-    cin >> nameIn;
+    //ignores the newline character
+    cin.ignore();
+    getline(cin , nameIn) ;
     //call method to get index
     int index = findByName(honkaiData, nameIn);
     if (index == -1) {
@@ -223,7 +240,7 @@ int main() {
 
     //stage 3 part 6
     string partialNameIn;
-    cout << "Enter Partial name to search for (The): ";
+    cout << "\nEnter Partial name to search for (The): ";
     cin >> partialNameIn;
    vector <Honkai> r= partialName(honkaiData, partialNameIn);
     if (r.empty()) {
@@ -235,6 +252,9 @@ int main() {
         }
     }
 
+    //stage 3 part 7
+    cout <<"\nSorted By Drop Rate:"<< endl;
+    sortByDropRate(honkaiData);
 
     return 0;
 }
