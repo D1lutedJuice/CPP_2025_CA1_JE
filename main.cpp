@@ -181,83 +181,132 @@ int main() {
 
     //calling load function
     load(filename, honkaiData);
+    int choice;
 
-    //stage 3 part 1
-    //a header for the data made the width the same as the data
-    cout << left << setw(5) << "ID" << setw(35) << "Name" << setw(13) << "Type"
-    << setw(15) << "Path" << setw(7) << "Rarity" << setw(8) << "Drop Rate" << endl;
+    cout << "\nHonkai Star Rail Data Menu"<< endl;
+    cout << "1. Display All Data" << endl;
+    cout << "2. Search By Name to Find Index" << endl;
+    cout << "3. Display the counts of each Path" << endl;
+    cout << "4. Display By Type" << endl;
+    cout << "5. To view Average Rarity, Lowest Rarity and Highest rarity" << endl;
+    cout << "6. Search by Partial name" << endl;
+    cout << "7. Sort by Drop Rate (Descending order)" << endl;
+    cout << "0. Exit" << endl;
+    cin >> choice;
 
-    //loop through each character and lightcone and print it
-    for (const Honkai &honkai : honkaiData) {
-        display(honkai);
-    }
+    //stage 4 (menu)
+    while (choice !=0)
+    {
+        //stage 3 part 1
+        if (choice == 1) {
+            //a header for the data made the width the same as the data
+            cout << left << setw(5) << "ID" << setw(35) << "Name" << setw(13) << "Type"
+            << setw(15) << "Path" << setw(7) << "Rarity" << setw(8) << "Drop Rate" << endl;
 
-    //stage 3 part 2
-    string nameIn;
-    cout << "\nEnter name to search for: ";
-    //ignores the newline character
-    cin.ignore();
-    getline(cin , nameIn) ;
-    //call method to get index
-    int index = findByName(honkaiData, nameIn);
-    if (index == -1) {
-        cout << "Name not found" << endl;
-    }
-    else {
-        cout << "Found at index: "<< index << endl;
-        display(honkaiData[index]);
-    }
-
-    //stage 3 part 3
-    map<string, int> counts = CountByPath(honkaiData);
-    cout << "\nPath Counts:" << endl;
-
-    //got help off w3schools https://www.w3schools.com/cpp/trycpp.asp?filename=demo_maps_loop
-    //loops through the map
-    for (auto& count : counts) {
-        //gets key and value and displays it
-        cout << count.first << ": " << count.second << endl;
-    }
-
-    //Stage 3 part 4
-    string typeIn;
-    cout << "Enter what Type to search by (Character or Light Cone)" << endl;
-    //ignores the newline character (got this from https://www.geeksforgeeks.org/cin-ignore-function-in-cpp/)
-    cin.ignore();
-    getline(cin , typeIn) ;
-    displayByType(honkaiData, typeIn);
-
-    //stage 3 part 5
-    Honkai highest;
-    Honkai lowest;
-    int average= findRarityinfo(honkaiData, highest, lowest);
-    cout << "\nRarity Info:" << endl;
-    cout << "Average Rarity: " << average << endl;
-    cout << "Lowest Rarity: " << endl;
-    display(lowest);
-    cout << "Highest Rarity: " << endl;
-    display(highest);
-
-    //stage 3 part 6
-    string partialNameIn;
-    cout << "\nEnter Partial name to search for (The): ";
-    cin >> partialNameIn;
-   vector <Honkai> r= partialName(honkaiData, partialNameIn);
-    if (r.empty()) {
-        cout << "No data found" << endl;
-    }
-    else {
-        for (const Honkai &honkai : r) {
-            display(honkai);
+            //loop through each character and lightcone and print it
+            for (const Honkai &honkai : honkaiData)
+            {
+                display(honkai);
+            }
         }
+
+
+        //stage 3 part 2
+        else if (choice == 2) {
+            string nameIn;
+            cout << "\nEnter name to search for: ";
+            //ignores the newline character
+            cin.ignore();
+            getline(cin , nameIn) ;
+
+            //call method to get index
+            int index = findByName(honkaiData, nameIn);
+            if (index == -1)
+            {
+                cout << "Name not found" << endl;
+            }
+            else
+            {
+                cout << "Found at index: "<< index << endl;
+                display(honkaiData[index]);
+            }
+        }
+
+        //stage 3 part 3
+        else if (choice == 3) {
+            map<string, int> counts = CountByPath(honkaiData);
+            cout << "\nPath Counts:" << endl;
+
+            //got help off w3schools https://www.w3schools.com/cpp/trycpp.asp?filename=demo_maps_loop
+            //loops through the map
+            for (auto& count : counts)
+            {
+                //gets key and value and displays it
+                cout << count.first << ": " << count.second << endl;
+            }
+        }
+
+        //Stage 3 part 4
+        else if (choice == 4) {
+            string typeIn;
+            cout << "Enter what Type to search by (Character or Light Cone)" << endl;
+            //ignores the newline character (got this from https://www.geeksforgeeks.org/cin-ignore-function-in-cpp/)
+            cin.ignore();
+            getline(cin , typeIn) ;
+            displayByType(honkaiData, typeIn);
+        }
+
+        //stage 3 part 5
+        else if (choice == 5) {
+            Honkai highest;
+            Honkai lowest;
+            int average= findRarityinfo(honkaiData, highest, lowest);
+            cout << "\nRarity Info:" << endl;
+            cout << "Average Rarity: " << average << endl;
+            cout << "Lowest Rarity: " << endl;
+            display(lowest);
+            cout << "Highest Rarity: " << endl;
+            display(highest);
+        }
+
+        //stage 3 part 6
+        else if (choice == 6) {
+            string partialNameIn;
+            cout << "\nEnter Partial name to search for (The): ";
+            cin >> partialNameIn;
+            vector <Honkai> r= partialName(honkaiData, partialNameIn);
+            if (r.empty()) {
+                cout << "No data found" << endl;
+            }
+            else {
+                for (const Honkai &honkai : r) {
+                    display(honkai);
+                }
+            }
+        }
+        //stage 3 part 7
+        else if (choice == 7) {
+            cout <<"\nSorted By Drop Rate:"<< endl;
+            sortByDropRate(honkaiData);
+        }
+        else {
+            cout << "Invalid Choice" << endl;
+        }
+        cout << "\nHonkai Star Rail Data Menu"<< endl;
+        cout << "1. Display All Data" << endl;
+        cout << "2. Search By Name to Find Index" << endl;
+        cout << "3. Display the counts of each Path" << endl;
+        cout << "4. Display By Type" << endl;
+        cout << "5. To view Average Rarity, Lowest Rarity and Highest rarity" << endl;
+        cout << "6. Search by Partial name" << endl;
+        cout << "7. Sort by Drop Rate (Descending order)" << endl;
+        cout << "0. Exit" << endl;
+        cin >> choice;
     }
-
-    //stage 3 part 7
-    cout <<"\nSorted By Drop Rate:"<< endl;
-    sortByDropRate(honkaiData);
-
-    return 0;
+    cout<< "Exiting... Thank you for using Honkai star rail Data System :D" << endl;
 }
+
+
 
 
 
